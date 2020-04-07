@@ -1,0 +1,68 @@
+﻿@{
+    ViewData["Title"] = "Registration Page";
+}
+
+@model Diver
+
+<style>
+    body{
+    background: url(images/PICT0073.JPG) no-repeat center center fixed;
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    background-size: cover;
+    -o-background-size: cover;
+    }
+</style>
+
+<div class="row mt-4 mb-3 justify-content-center">
+    <h3 class="col-12 text-center text-white font-weight-bold">Diver Log Registration</h3>
+</div>
+<div class="row mb-3 justify-content-center">
+    <a class="col-1 text-center text-light" href="/">Login</a>
+</div>
+<div class="mt-5">
+    <form asp-action="RegisterDiver" asp-controller="Home" method="POST">
+        <div class="row justify-content-center">
+            <div class="form-group d-inline col-4">
+                <span class="text-danger" asp-validation-for="Username"></span>
+                <input class="form-control mb-4" asp-for="Username" placeholder="Enter User Name">
+
+                <span class="text-danger" asp-validation-for="FName"></span>
+                <input class="form-control mb-4" asp-for="FName" placeholder="First Name">
+
+                <span class="text-danger" asp-validation-for="LName"></span>
+                <input class="form-control mb-4" asp-for="LName" placeholder="Last Name">
+
+                <span class="text-danger" asp-validation-for="Email"></span>
+                <input class="form-control" asp-for="Email" placeholder="e-mail Address">
+
+                <label asp-for="BirthDate"></label>
+                <span class="text-danger" asp-validation-for="BirthDate"></span>
+                <input type="date" class="form-control mb-4" asp-for="BirthDate" placeholder="Birth Date (13 years or older)">
+
+            </div>
+            <div class="form-group col-4">
+                <span class="text-danger" asp-validation-for="CertificateAuthority"></span>
+                <select class="form-control mb-4" asp-for="CertificateAuthority" placeholder="Certified Diver Organization">
+                    <option value="P">PADI</option>
+                    <option value="N">NAUI</option>
+                </select>
+
+                <span class="text-danger" asp-validation-for="DiveCertID"></span>
+                <input class="form-control mb-4" asp-for="DiveCertID" placeholder="Certified Diver Number">
+
+                <span class="text-danger" asp-validation-for="Password"></span>
+                <input class="form-control mb-4" asp-for="Password" placeholder="Password">
+
+                <span class="text-danger" asp-validation-for="ConfirmPassword"></span>
+                <input class="form-control mb-4" asp-for="ConfirmPassword" placeholder="Confirm password">
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-12 text-center">
+                <button type="submit" class="btn btn-primary mt-3">Sign up Now</button>
+            </div>
+        </div>
+    </form>
+</div>
+

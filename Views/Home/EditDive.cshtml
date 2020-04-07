@@ -1,0 +1,131 @@
+@{
+    ViewData["Title"] = "Create a Dive Log";
+}
+
+@model ViewAddLog
+
+<style>
+    body{
+    background: url(images/PICT0094.JPG) no-repeat center center fixed;
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    background-size: cover;
+    -o-background-size: cover;
+    }
+</style>
+
+<header>
+    <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light border-bottom box-shadow mb-3">
+        <div class="container">
+            <span class="navbar-brand" asp-area="">@Model.ThisDiver.FName's Dive Log</span>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target=".navbar-collapse" aria-controls="navbarSupportedContent"
+                    aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="navbar-collapse collapse d-sm-inline-flex flex-sm-row-reverse">
+                <ul class="navbar-nav flex-grow-1">
+                    <li class="nav-item">
+                        <a class="nav-link text-white" asp-area="" asp-controller="Home" asp-action="DisplayLogs">Dive Log &nbsp|</a>
+                    </li>
+                    <li class="nav-item">
+                        <span class="nav-link text-dark" asp-area="">Add Dive &nbsp|</span>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link text-white" asp-area="" asp-controller="Home" asp-action="DisplaySites">Dive Sites &nbsp|</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link text-white" asp-area="" asp-controller="Home" asp-action="AddSite">Add Dive Site &nbsp|</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link text-white" asp-area="" asp-controller="Home" asp-action="Logout">Logout</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+</header>
+
+<div class="row mt-3 mb-3 justify-content-center">
+    <h1 class="mb-4 text-center text-white">Add a Dive</h1>
+</div>
+<div class="row justify-content-center">
+    <form class="text-white" asp-action="CreateDive" asp-controller="Home" method="POST">
+        <div class="form-row">
+            <div class="form-group col-md-4 d-inline">
+
+                <label asp-for="NewDiverLog.DiveNumber"></label>
+                <span class="text-danger" asp-validation-for="NewDiverLog.DiveNumber"></span>
+                <input  class="form-control" asp-for="NewDiverLog.DiveNumber" value="@ViewBag.LogNum">
+
+                <label asp-for="NewDiverLog.DiveDate"></label>
+                <span class="text-danger" asp-validation-for="NewDiverLog.DiveDate"></span>
+                <input class="form-control" type="date" asp-for="NewDiverLog.DiveDate" placeholder="Dive Date">
+
+                <label asp-for="NewDiverLog.DiveSiteID"></label>
+                <span class="text-danger" asp-validation-for="NewDiverLog.DiveSiteID"></span>
+                <select class="form-control" asp-for="NewDiverLog.DiveSiteID" placeholder="Dive Site Name">
+                    <option value=""></option>
+                    @{
+                        foreach (DiveSite l in Model.DiveLocations)
+                        {
+                            <option value="@l.DiveSiteID">@l.SiteName, @l.City, @l.StProv, @l.Country</option>
+                        }
+                    }
+                </select>
+
+                <label asp-for="NewDiverLog.PressureGroupEntry"></label>
+                <span class="text-danger" asp-validation-for="NewDiverLog.PressureGroupEntry"></span>
+                <input class="form-control" asp-for="NewDiverLog.PressureGroupEntry" placeholder="A - Z">
+
+                <label asp-for="NewDiverLog.BottomTime"></label>
+                <span class="text-danger" asp-validation-for="NewDiverLog.BottomTime"></span>
+                <input class="form-control" asp-for="NewDiverLog.BottomTime" placeholder="Bottom Time">
+            </div>
+            <div class="form-group col-md-4 d-inline">
+                <label asp-for="NewDiverLog.MaxDepth"></label>
+                <span class="text-danger" asp-validation-for="NewDiverLog.MaxDepth"></span>
+                <input class="form-control" asp-for="NewDiverLog.MaxDepth" placeholder="Max Dive Depth">
+
+                <label asp-for="NewDiverLog.TankStartPSI"></label>
+                <span class="text-danger" asp-validation-for="NewDiverLog.TankStartPSI"></span>
+                <input class="form-control" asp-for="NewDiverLog.TankStartPSI" value="300">
+
+                <label asp-for="NewDiverLog.TankEndPSI"></label>
+                <span class="text-danger" asp-validation-for="NewDiverLog.TankEndPSI"></span>
+                <input class="form-control" asp-for="NewDiverLog.TankEndPSI" placeholder="Air Tank Ending PSI">
+
+                <label asp-for="NewDiverLog.DiveStartTime"></label>
+                <span class="text-danger" asp-validation-for="NewDiverLog.DiveStartTime"></span>
+                <input class="form-control" type="time" asp-for="NewDiverLog.DiveStartTime" placeholder="Dive Start Time">
+
+                <label asp-for="NewDiverLog.DiveStopTime"></label>
+                <span class="text-danger" asp-validation-for="NewDiverLog.DiveStopTime"></span>
+                <input class="form-control" type="time" asp-for="NewDiverLog.DiveStopTime" placeholder="Dive Stop Time">
+            </div>
+            <div class="form-group col-md-4 d-inline">
+                <label asp-for="NewDiverLog.SafetyStopDepth"></label>
+                <span class="text-danger" asp-validation-for="NewDiverLog.SafetyStopDepth"></span>
+                <input class="form-control" asp-for="NewDiverLog.SafetyStopDepth" value="15">
+
+                <label asp-for="NewDiverLog.SafetyStopTime">Safety Stop Time (Minutes)</label>
+                <span class="text-danger" asp-validation-for="NewDiverLog.SafetyStopTime"></span>
+                <input class="form-control" asp-for="NewDiverLog.SafetyStopTime" value="3">
+
+                <label asp-for="NewDiverLog.PressureGroupExit"></label>
+                <span class="text-danger" asp-validation-for="NewDiverLog.PressureGroupExit"></span>
+                <input class="form-control" asp-for="NewDiverLog.PressureGroupExit" placeholder="A - Z">
+
+                <label asp-for="NewDiverLog.WaterTemp">Water Temp &degF</label>
+                <span class="text-danger" asp-validation-for="NewDiverLog.WaterTemp"></span>
+                <input class="form-control" asp-for="NewDiverLog.WaterTemp" placeholder="Water Temp Farenheit">
+
+                <label asp-for="NewDiverLog.SurfaceInterval"></label>
+                <span class="text-danger" asp-validation-for="NewDiverLog.SurfaceInterval"></span>
+                <input class="form-control" asp-for="NewDiverLog.SurfaceInterval" placeholder="Minutes Out of Water">
+            </div>
+        </div>
+        <div class="row justify-content-center">
+            <button type="submit" class="btn btn-primary mt-3">Create</button>
+        </div>
+    </form>
+</div>

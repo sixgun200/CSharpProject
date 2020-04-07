@@ -1,0 +1,90 @@
+@{
+    ViewData["Title"] = "Add a Dive Site";
+}
+
+@model DiveSite
+
+<style>
+    body{
+    background: url(images/PICT0024.JPG) no-repeat center center fixed;
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    background-size: cover;
+    -o-background-size: cover;
+    }
+</style>
+
+<header>
+    <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light border-bottom box-shadow mb-3">
+        <div class="container">
+            <span class="navbar-brand" asp-area="">@ViewBag.LoggedInDiver.FName's Dive Log</span>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target=".navbar-collapse" aria-controls="navbarSupportedContent"
+                    aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="navbar-collapse collapse d-sm-inline-flex flex-sm-row-reverse">
+                <ul class="navbar-nav flex-grow-1">
+                    <li class="nav-item">
+                        <a class="nav-link text-white" asp-area="" asp-controller="Home" asp-action="DisplayLogs">Dive Log &nbsp|</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link text-white" asp-area="" asp-controller="Home" asp-action="AddDive">Add Dive &nbsp|</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link text-white" asp-area="" asp-controller="Home" asp-action="DisplaySites">Dive Sites &nbsp|</a>
+                    </li>
+                    <li class="nav-item">
+                        <span class="nav-link text-dark" asp-area="">Add Dive Site &nbsp|</span>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link text-white" asp-area="" asp-controller="Home" asp-action="Logout">Logout</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+</header>
+
+<div class="row mt-3 mb-3 justify-content-center">
+    <h1 class="mb-4 text-center text-white">Add a Dive Site</h1>
+</div>
+<div class="row justify-content-center">
+    <form class="text-white" asp-action="CreateSite" asp-controller="Home" method="POST">
+        <div class="form-row">
+            <div class="form-group col-md-5 d-inline">
+                <label asp-for="SiteName"></label>
+                <span class="text-danger" asp-validation-for="SiteName"></span>
+                <input  class="form-control" asp-for="SiteName" placeholder="Dive Site Name">
+
+                <label asp-for="City"></label>
+                <span class="text-danger" asp-validation-for="City"></span>
+                <input class="form-control" asp-for="City" placeholder="City">
+
+                <label asp-for="StProv"></label>
+                <span class="text-danger" asp-validation-for="StProv"></span>
+                <input class="form-control" asp-for="StProv" placeholder="State or Province">
+
+                <label asp-for="Country"></label>
+                <span class="text-danger" asp-validation-for="Country"></span>
+                <input class="form-control" asp-for="Country" placeholder="Country">
+            </div>
+            <div class="form-group col-md-5 d-inline">
+                <label asp-for="Latitude">Latitude &degN</label>
+                <span class="text-danger" asp-validation-for="Latitude"></span>
+                <input class="form-control" asp-for="Latitude" placeholder="ex: 12.345678">
+
+                <label asp-for="Longitude">Latitude &degW</label>
+                <span class="text-danger" asp-validation-for="Longitude"></span>
+                <input class="form-control" asp-for="Longitude" placeholder="ex: -155.123456">
+
+                <label asp-for="Altitude"></label>
+                <span class="text-danger" asp-validation-for="Altitude"></span>
+                <input class="form-control" asp-for="Altitude" placeholder="Altitude in feet">
+
+            </div>
+        </div>
+        <div class="row justify-content-center">
+            <button type="submit" class="btn btn-primary mt-3">Create</button>
+        </div>
+    </form>
+</div>

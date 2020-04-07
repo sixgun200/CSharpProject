@@ -1,0 +1,79 @@
+﻿@{
+    ViewData["Title"] = "Home Page";
+}
+
+@* @model DiveSite *@
+
+<style>
+    body{
+    background: url(images/PICT0075.JPG) no-repeat center center fixed;
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    background-size: cover;
+    -o-background-size: cover;
+    }
+</style>
+
+<header>
+    <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light border-bottom box-shadow mb-3">
+        <div class="container">
+            <span class="navbar-brand" asp-area="">@ViewBag.LoggedInDiver.FName's Dive Log</span>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target=".navbar-collapse" aria-controls="navbarSupportedContent"
+                    aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="navbar-collapse collapse d-sm-inline-flex flex-sm-row-reverse">
+                <ul class="navbar-nav flex-grow-1">
+                    <li class="nav-item">
+                        <a class="nav-link text-white" asp-area="" asp-controller="Home" asp-action="DisplayLogs">Dive Log &nbsp|</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link text-white" asp-area="" asp-controller="Home" asp-action="AddDive">Add Dive &nbsp|</a>
+                    </li>
+                    <li class="nav-item">
+                        <span class="nav-link text-dark" asp-area="">Dive Sites &nbsp|</span>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link text-white" asp-area="" asp-controller="Home" asp-action="AddSite">Add Dive Site &nbsp|</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link text-white" asp-area="" asp-controller="Home" asp-action="Logout">Logout</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+</header>
+
+<div class="row mt-4 mb-3">
+    <h3 class="col-10 pl-5 text-center text-white"></h3>
+    <a class="btn btn-primary col-1 text-center" href="/addsite">Add Site</a>;
+</div>
+<div class="row">
+    <div class="col-sm-12 text-white table-scroll">
+        <h3> Dive Sites</h3>
+        <table class="table table-striped overflow-auto text-white">
+            <tr>
+                <th>Site Name</th>
+                <th>City</th>
+                <th>StProv</th>
+                <th>Country</th>
+                <th>Lat (&degNorth)</th>
+                <th>Long (&degWest)</th>
+                <th>Altitude</th>
+            </tr>
+            @foreach (DiveSite s in Model)
+            {
+                <tr>
+                    <td><a class="text-white" href="editsite/@s.DiveSiteID">@s.SiteName</a></td>
+                    <td>@s.City</td>
+                    <td>@s.StProv</td>
+                    <td>@s.Country</td>
+                    <td>@s.Latitude</td>
+                    <td>@s.Longitude</td>
+                    <td>@s.Altitude</td>
+                </tr>
+            }
+        </table>
+    </div>
+</div>

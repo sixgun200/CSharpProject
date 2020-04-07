@@ -1,0 +1,99 @@
+﻿@{
+    ViewData["Title"] = "Display Diver Logs";
+}
+
+@* @model DiverLog *@
+
+<style>
+    body{
+    background: url(images/PICT0066.JPG) no-repeat center center fixed;
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    background-size: cover;
+    -o-background-size: cover;
+    }
+</style>
+
+<header>
+    <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light border-bottom box-shadow mb-3">
+        <div class="container">
+            <span class="navbar-brand" asp-area="">@ViewBag.LoggedInDiver.FName's Dive Log</span>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target=".navbar-collapse" aria-controls="navbarSupportedContent"
+                    aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="navbar-collapse collapse d-sm-inline-flex flex-sm-row-reverse">
+                <ul class="navbar-nav flex-grow-1">
+                    <li class="nav-item">
+                        <span class="nav-link text-dark disabled" asp-area="">Dive Log &nbsp|</span>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link text-white" asp-area="" asp-controller="Home" asp-action="AddDive">Add Dive &nbsp|</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link text-white" asp-area="" asp-controller="Home" asp-action="DisplaySites">Dive Sites &nbsp|</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link text-white" asp-area="" asp-controller="Home" asp-action="AddSite">Add Dive Site &nbsp|</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link text-white" asp-area="" asp-controller="Home" asp-action="Logout">Logout</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+</header>
+
+<div class="row mt-4 mb-3">
+    <h3 class="col-10 pl-5 text-center text-white"></h3>
+    @{
+        if (ViewBag.DSCount==0)
+        {
+            <a class="btn btn-primary col-1 text-center" href="/addsite">Add Site</a>;
+        }
+        else
+        {
+            <a class="btn btn-primary col-1 text-center" href="/adddive">Add Dive</a>;
+        }
+    }
+    
+</div>
+<div class="row">
+    <div class="col-sm-12 text-white">
+        <h3>Dive Log</h3>
+        <table class="table table-sm table-striped overflow-auto justify-content-center">
+            <tr>
+                <th>Dive Number</th>
+                <th>Date</th>
+                <th>Dive Site</th>
+                <th>City</th>
+                <th>State/Province</th>
+                <th>Country</th>
+            </tr>
+            @foreach (DiverLog l in Model)
+            {
+                <tr class="font-weight-bold">
+                    <td><a href="viewdive/@l.DiveNumber">@l.DiveNumber.ToString("0000")</a></td>
+                    <td>@l.DiveDate.ToString("MMM d, yyyy")</td>
+                    <td>@l.DiveSite.SiteName</td>
+                    <td>@l.DiveSite.City</td>
+                    <td>@l.DiveSite.StProv</td>
+                    <td>@l.DiveSite.Country</td>
+                </tr>
+            }
+        </table>
+    </div>
+    @* <input class="form-control" id="querybox" />
+
+    <script>
+        // const endpoint="https://maps.googleapis.com/maps/api/place/queryautocomplete/json?key=AIzaSyAa_05unLMf5OQPJyPUwx8eo7rx01Njqsg&input="
+        $("#querybox").keyup(event => {
+            console.log(event.target.value);
+            $.get(`${endpoint}${event.target.value}`)
+                .done(function(data) {
+                    console.log(data);
+                });
+        })
+    </script> *@
+</div>

@@ -1,0 +1,177 @@
+@{
+    ViewData["Title"] = "Display Diver Logs";
+}
+
+<style>
+    body{
+    background: url(images/PICT0039.JPG) no-repeat center center fixed;
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    background-size: cover;
+    -o-background-size: cover;
+    }
+</style>
+
+<header>
+    <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light border-bottom box-shadow mb-3">
+        <div class="container">
+            <span class="navbar-brand" asp-area="">@ViewBag.LoggedInDiver.FName's Dive Log</span>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target=".navbar-collapse" aria-controls="navbarSupportedContent"
+                    aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="navbar-collapse collapse d-sm-inline-flex flex-sm-row-reverse">
+                <ul class="navbar-nav flex-grow-1">
+                    <li class="nav-item">
+                        <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="DisplayLogs">Dive Log &nbsp|</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="AddDive">Add Dive &nbsp|</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="DisplaySites">Dive Sites &nbsp|</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="AddSite">Add Dive Site &nbsp|</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Logout">Logout</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+</header>
+
+<div class="row mt-3 mb-3">
+    <h2 class="col-md-12 ml-5 mb-3 text-center">Dive @Model.DiveNumber.ToString("0000") in @Model.DiveSite.City, @Model.DiveSite.StProv, @Model.DiveSite.Country</h2>
+</div>
+
+<div class="row">
+    <style>
+       /* Set the size of the div element that contains the map */
+      #map {
+        height: 400px;  /* The height is 400 pixels */
+        width: 100%;  /* The width is the width of the web page */
+       }
+    </style>
+    <div id="map"></div>
+    <script>
+        // Initialize and add the map
+        function initMap() {
+        // The location of Uluru
+        var uluru = {lat: @Model.DiveSite.Latitude, lng: @Model.DiveSite.Longitude};
+        // The map, centered at Uluru
+        var map = new google.maps.Map(
+            document.getElementById('map'), {zoom: 11, center: uluru});
+        // The marker, positioned at Uluru
+        var marker = new google.maps.Marker({position: uluru, map: map});
+        }
+    </script>
+    <script async defer
+        src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAa_05unLMf5OQPJyPUwx8eo7rx01Njqsg&callback=initMap">
+    </script>
+</div>
+
+<div class="row justify-content-center">
+    <a class="btn btn-primary mt-3 mb-3 col-md-1" href="/editdive/@Model.DiveNumber">Edit Dive</a>
+</div>
+
+<div class="row">
+    <div class="col-md-3 mb-3 d-inline">
+        <h5 class="ml-5">Site Name: </h5>
+    </div>
+    <div class="col-md-3 mb-3 d-inline">
+        <h5>@Model.DiveSite.SiteName</h5>
+    </div>
+    <div class="col-md-3 mb-3 d-inline">
+        <h5 class="ml-5">Dive Stop Time: </h5>
+    </div>
+    <div class="col-md-3 mb-3 d-inline">
+        <h5>@Model.DiveStopTime.ToString("hh:mm tt")</h5>
+    </div>
+</div>
+<div class="row">
+    <div class="col-md-3 mb-3 d-inline">
+        <h5 class=" ml-5">Dive Date: </h5>
+    </div>
+    <div class="col-md-3 mb-3 d-inline">
+        <h5>@Model.DiveDate.ToString("MMM d, yyyy")</h5>
+    </div>
+    <div class="col-md-3 mb-3 d-inline">
+        <h5 class="ml-5">Safety Stop Depth: </h5>
+    </div>
+    <div class="col-md-3 mb-3 d-inline">
+        <h5>@Model.SafetyStopDepth ft</h5>
+    </div>
+</div>
+<div class="row">
+    <div class="col-md-3 mb-3 d-inline">
+        <h5 class="ml-5">Bottom Time: </h5>
+    </div>
+    <div class="col-md-3 mb-3 d-inline">
+        <h5>@Model.BottomTime</h5>
+    </div>
+    <div class="col-md-3 mb-3 d-inline">
+        <h5 class="ml-5">Safety Stop (mins): </h5>
+    </div>
+    <div class="col-md-3 mb-3 d-inline">
+        <h5>@Model.SafetyStopTime mins</h5>
+    </div>
+</div>
+<div class="row">
+    <div class="col-md-3 mb-3 d-inline">
+        <h5 class="ml-5">Max Depth: </h5>
+    </div>
+    <div class="col-md-3 mb-3 d-inline">
+        <h5>@Model.MaxDepth</h5>
+    </div>
+    <div class="col-md-3 mb-3 d-inline">
+        <h5 class="ml-5">Pressure Group Entry: </h5>
+    </div>
+    <div class="col-md-3 mb-3 d-inline">
+        <h5>@Model.PressureGroupEntry</h5>
+    </div>
+</div>
+<div class="row">
+    <div class="col-md-3 mb-3 d-inline">
+        <h5 class="ml-5">Tank Start PSI: </h5>
+    </div>
+    <div class="col-md-3 mb-3 d-inline">
+        <h5>@Model.TankStartPSI</h5>
+    </div>
+    <div class="col-md-3 mb-3 d-inline">
+        <h5 class="ml-5">Pressure Group Exit: </h5>
+    </div>
+    <div class="col-md-3 mb-3 d-inline">
+        <h5>@Model.PressureGroupExit</h5>
+    </div>
+</div>
+<div class="row">
+    <div class="col-md-3 mb-3 d-inline">
+        <h5 class="ml-5">Tank End PSI: </h5>
+    </div>
+    <div class="col-md-3 mb-3 d-inline">
+        <h5>@Model.TankEndPSI</h5>
+    </div>
+    <div class="col-md-3 mb-3 d-inline">
+        <h5 class="ml-5">Suface Interval: </h5>
+    </div>
+    <div class="col-md-3 mb-3 d-inline">
+        <h5>@Model.SurfaceInterval</h5>
+    </div>
+</div>
+<div class="row">
+    <div class="col-md-3 mb-3 d-inline">
+        <h5 class="ml-5">Dive Start Time: </h5>
+    </div>
+    <div class="col-md-3 mb-3 d-inline">
+        <h5>@Model.DiveStartTime.ToString("hh:mm tt")</h5>
+    </div>
+    <div class="col-md-3 mb-3 d-inline">
+        <h5 class="ml-5">Water Temp: </h5>
+    </div>
+    <div class="col-md-3 mb-3 d-inline">
+        <h5>@Model.WaterTemp</h5>
+    </div>
+</div>
